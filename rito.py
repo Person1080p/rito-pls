@@ -11,7 +11,9 @@ print(me)
 # all objects are returned (by default) as a dict
 # lets see if i got diamond yet (i probably didnt)
 my_ranked_stats = lol_watcher.league.by_summoner(my_region, me['id'])
-print(json.dumps(my_ranked_stats, sort_keys=True, indent=4))
+#print(json.dumps(my_ranked_stats, sort_keys=True, indent=4))
+data = json.load(my_ranked_stats)
+print(data.keys())
 
 # First we get the latest version of the game from data dragon
 #versions = lol_watcher.data_dragon.versions_for_region(my_region)
