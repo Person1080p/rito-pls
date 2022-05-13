@@ -1,3 +1,4 @@
+import json
 from riotwatcher import LolWatcher, ApiError
 
 lol_watcher = LolWatcher('RGAPI-2719aa15-d9aa-4e4d-acb4-570e3ba7e62c')
@@ -10,15 +11,15 @@ print(me)
 # all objects are returned (by default) as a dict
 # lets see if i got diamond yet (i probably didnt)
 my_ranked_stats = lol_watcher.league.by_summoner(my_region, me['id'])
-print(my_ranked_stats)
+print(json.dumps(my_ranked_stats, sort_keys=True, indent=4))
 
 # First we get the latest version of the game from data dragon
-versions = lol_watcher.data_dragon.versions_for_region(my_region)
-champions_version = versions['n']['champion']
+#versions = lol_watcher.data_dragon.versions_for_region(my_region)
+#champions_version = versions['n']['champion']
 
 # Lets get some champions
-current_champ_list = lol_watcher.data_dragon.champions(champions_version)
-print(current_champ_list)
+#current_champ_list = lol_watcher.data_dragon.champions(champions_version)
+#print(current_champ_list)
 
 # For Riot's API, the 404 status code indicates that the requested data wasn't found and
 # should be expected to occur in normal operation, as in the case of a an
