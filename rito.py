@@ -1,7 +1,10 @@
 import json
 from riotwatcher import LolWatcher, ApiError
 
-lol_watcher = LolWatcher('RGAPI-2719aa15-d9aa-4e4d-acb4-570e3ba7e62c')
+APIFile= open("../API.txt","rt")
+APIkey = APIFile.read()
+
+lol_watcher = LolWatcher(APIkey)
 
 my_region = 'na1'
 
@@ -13,7 +16,10 @@ me = lol_watcher.summoner.by_name(my_region, 'NotVechs')
 my_ranked_stats = lol_watcher.league.by_summoner(my_region, me['id'])
 print(my_ranked_stats[1]["summonerName"])
 
-
+'''
+key/value pairs {'leagueId': '568fb8f4-cd92-472a-8ac7-4caa5483d09b', 'queueType': 'RANKED_SOLO_5x5', 'tier': 'SILVER', 'rank': 'I', 'summonerId': 'E1NBd0H1dIhk4pnydZhKKpQWIp9fBMEgK98x_ogpSFhwDT0', 'summonerName': 'NotVechs', 'leaguePoints': 52, 'wins': 10, 'losses': 8, 'veteran': False, 'inactive': False, 'freshBlood': False, 'hotStreak': False} ['summonerName']
+flex = 0 soloq = 1
+'''
 
 
 # First we get the latest version of the game from data dragon
@@ -31,14 +37,14 @@ print(my_ranked_stats[1]["summonerName"])
 # The 429 status code indicates that the user has sent too many requests
 # in a given amount of time ("rate limiting").
 
-try:
-    response = lol_watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
-except ApiError as err:
-    if err.response.status_code == 429:
-        print('We should retry in {} seconds.'.format(err.response.headers['Retry-After']))
-        print('this retry-after is handled by default by the RiotWatcher library')
-        print('future requests wait until the retry-after time passes')
-    elif err.response.status_code == 404:
-        print('Summoner with that ridiculous name not found.')
-    else:
-        raise
+# try:
+#     response = lol_watcher.summoner.by_name(my_region, 'this_is_probably_not_anyones_summoner_name')
+# except ApiError as err:
+#     if err.response.status_code == 429:
+#         print('We should retry in {} seconds.'.format(err.response.headers['Retry-After']))
+#         print('this retry-after is handled by default by the RiotWatcher library')
+#         print('future requests wait until the retry-after time passes')
+#     elif err.response.status_code == 404:
+#         print('Summoner with that ridiculous name not found.')
+#     else:
+#         raise
